@@ -17,7 +17,7 @@ import { StudentsService } from '../services/students.service';
 export class StudentsComponent implements OnInit {
 
   students$: Observable<Student[]>;// Add the type annotation for the students array
-  displayedColumns = ['_id','name','ra'];
+  displayedColumns = ['_id','name','ra','actions'];
 
   constructor(
     private StudentsService: StudentsService,
