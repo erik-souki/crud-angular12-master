@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+
 import { Student } from '../model/student';
 import { StudentsService } from '../services/students.service';
-import { Observable } from 'rxjs';
+
 // Replace 'path/to/student.model' with the actual path to the Student model file
 
 @Component({
@@ -11,12 +16,29 @@ import { Observable } from 'rxjs';
 })
 export class StudentsComponent implements OnInit {
 
-  students: Observable<Student[]>;// Add the type annotation for the students array
+  students$: Observable<Student[]>;// Add the type annotation for the students array
   displayedColumns = ['name','ra'];
 
-  constructor(private StudentsService: StudentsService) {
-    this.students = this.StudentsService.List();
+  constructor(
+    private StudentsService: StudentsService,
+    public dialog: MatDialog
+    ) {
+
+    this.students$ = this.StudentsService.List()
+    .pipe(
+      catchError(error => {
+       this.onError('Erro ao carregar alunos.')
+       return of([])
+      })
+    );
   }
+
+  onError(errorMsg: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      data: errorMsg
+    });
+  }
+
 
   ngOnInit(): void {
     // TODO document why this method 'ngOnInit' is empty
