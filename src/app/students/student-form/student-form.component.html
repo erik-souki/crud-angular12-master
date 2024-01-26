@@ -1,1 +1,31 @@
-<p>student-form works!</p>
+<mat-card>
+  <mat-toolbar color="primary">Formulario de Alunos</mat-toolbar>
+  <mat-card-actions >
+  <form [formGroup]="form"  class="min-width">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="nome" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="RA" formControlName="ra">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+
+        <mat-label>Time</mat-label>
+        <mat-select formControlName="team">
+          <mat-option value="option1">Amarelo</mat-option>
+          <mat-option value="option2" disabled>Azul (disabled)</mat-option>
+          <mat-option value="option3">Vermelho</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+  </form>
+</mat-card-actions>
+
+  <mat-card-actions >
+    <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
+    <button mat-raised-button (click)="onCancel()">Cancelar</button>
+  </mat-card-actions>
+
+</mat-card>

@@ -6,6 +6,7 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 
 import { Student } from '../model/student';
 import { StudentsService } from '../services/students.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Replace 'path/to/student.model' with the actual path to the Student model file
 
@@ -17,11 +18,13 @@ import { StudentsService } from '../services/students.service';
 export class StudentsComponent implements OnInit {
 
   students$: Observable<Student[]>;// Add the type annotation for the students array
-  displayedColumns = ['_id','name','ra','actions'];
+  displayedColumns = ['_id','name','ra','team','actions'];
 
   constructor(
     private StudentsService: StudentsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
     ) {
 
     this.students$ = this.StudentsService.List()
@@ -41,11 +44,10 @@ export class StudentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
- //   this.students = [
-  //    {_id:'2', name: 'Alice', ra: '12345' },
-    //  { _id:'3', name: 'Bob', ra: '54321' }
-    //];
+
   }
+
+  onAdd(){
+    this.router.navigate(['new'], {relativeTo: this.route })}
 
 }

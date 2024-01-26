@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Student } from '../model/student';
 import { Observable } from 'rxjs';
-import { delay, first, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
+
+import { Student } from '../model/student';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class StudentsService {
     //  delay(2000),
       tap(students => console.log(students))
     );
+  }
+
+  save(record: Student) {
+    return this.httpClient.post<Student>(this.API, record).pipe(first());
   }
 }
 
