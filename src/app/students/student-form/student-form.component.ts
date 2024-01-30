@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { StudentsService } from '../services/students.service';
@@ -13,20 +13,21 @@ import { StudentsService } from '../services/students.service';
 })
 export class StudentFormComponent implements OnInit {
 
-  form: UntypedFormGroup;
+  form = this.formBuilder.group({
+    name: [''],
+    ra:[],
+    team:['']
+  });
 
-  constructor(private formBuilder: UntypedFormBuilder,
+  constructor(private formBuilder: NonNullableFormBuilder,
     private service: StudentsService,
     private snackBar:MatSnackBar,
     private location: Location) {
-    this.form = this.formBuilder.group({
-      name: [null],
-      ra:[null],
-      team:[null]
-    });
+    //this.form
   }
 
   ngOnInit(): void {
+
   }
 
   onSubmit(){

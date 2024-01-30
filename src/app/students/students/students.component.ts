@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StudentsComponent implements OnInit {
 
   students$: Observable<Student[]>;// Add the type annotation for the students array
-  displayedColumns = ['_id','name','ra','team','actions'];
+ 
 
   constructor(
     private StudentsService: StudentsService,

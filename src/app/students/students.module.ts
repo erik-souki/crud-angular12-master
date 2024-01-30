@@ -8,12 +8,14 @@ import { StudentFormComponent } from './student-form/student-form.component';
 import { StudentsRoutingModule } from './students-routing.module';
 import { StudentsComponent } from './students/students.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StudentsListComponent } from './students-list/students-list.component';
 
 
 @NgModule({
   declarations: [
     StudentsComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    StudentsListComponent
   ],
   imports: [
     CommonModule,

@@ -23,7 +23,7 @@ export class StudentsService {
     );
   }
 
-  save(record: Student) {
+  save(record: Partial<Student>) {
     return this.httpClient.post<Student>(this.API, record).pipe(first());
   }
 }
