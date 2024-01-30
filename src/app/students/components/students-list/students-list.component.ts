@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Student } from '../model/student';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Student } from '../../model/student';
 
 @Component({
   selector: 'app-students-list',
@@ -10,6 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StudentsListComponent implements OnInit {
 
   @Input() students: Student[] = [];
+  @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
+  @Output() remove = new EventEmitter(false);
+
+
   readonly displayedColumns = ['_id','name','ra','team','actions'];
 
   constructor(  private router: Router,
@@ -19,6 +25,14 @@ export class StudentsListComponent implements OnInit {
   }
 
   onAdd(){
-    this.router.navigate(['new'], {relativeTo: this.route })}
+    this.add.emit(true);
+  }
+
+  onEdit(student: Student){
+    this.edit.emit(student);
+  }
+  onDelete(student: Student){
+    this.remove.emit(student);
+  }
 
 }

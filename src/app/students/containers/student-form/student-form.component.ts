@@ -2,8 +2,10 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
-import { StudentsService } from '../services/students.service';
+import { Student } from '../../model/student';
+import { StudentsService } from '../../services/students.service';
 
 
 @Component({
@@ -14,20 +16,28 @@ import { StudentsService } from '../services/students.service';
 export class StudentFormComponent implements OnInit {
 
   form = this.formBuilder.group({
+    _id: [''],
     name: [''],
-    ra:[],
+    ra:[''],
     team:['']
   });
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: StudentsService,
     private snackBar:MatSnackBar,
-    private location: Location) {
+    private location: Location,
+    private route: ActivatedRoute) {
     //this.form
   }
 
   ngOnInit(): void {
-
+    const student: Student = this.route.snapshot.data['student'];
+    this.form.setValue({
+      _id: student._id,
+      name: student.name,
+      ra: student.ra,
+      team: student.team
+    })
   }
 
   onSubmit(){

@@ -6,6 +6,9 @@
   <app-students-list
     *ngIf="students$ | async as students; else loading"
     [students]="students"
+    (add)="onAdd()"
+    (edit)="onEdit($event)"
+    (remove)="onRemove($event)"
   ></app-students-list>
 
 

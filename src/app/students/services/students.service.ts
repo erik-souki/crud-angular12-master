@@ -23,9 +23,32 @@ export class StudentsService {
     );
   }
 
+  loadById(id: string){
+    return this.httpClient.get<Student>(`${this.API}/${id}`);
+  }
+
   save(record: Partial<Student>) {
+    //console.log(record)
+    if(record._id){
+     // console.log('update');
+      return this.update(record);
+    }
+    //console.log('create');
+    return this.create(record);
+  }
+
+  private create(record: Partial<Student>) {
     return this.httpClient.post<Student>(this.API, record).pipe(first());
   }
+
+  private update(record: Partial<Student>) {
+    return this.httpClient.put<Student>(`${this.API}/${record._id}`, record).pipe(first());
+  }
+
+  remove(id: string) {
+    return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
+  }
+
 }
 
 

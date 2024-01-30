@@ -41,11 +41,11 @@
 
   <mat-cell *matCellDef="let student" class="action-column">
     <button mat-icon-button color="primary" aria-label="Editar um aluno">
-      <mat-icon>edit</mat-icon>
+      <mat-icon (click)="onEdit(student)">edit</mat-icon>
     </button>
 
     <button mat-icon-button color="warn" aria-label="Deletar um aluno">
-      <mat-icon>delete</mat-icon>
+      <mat-icon (click)="onDelete(student)">delete</mat-icon>
     </button>
   </mat-cell>
 </ng-continer>
