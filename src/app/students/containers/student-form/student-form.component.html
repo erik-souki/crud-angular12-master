@@ -4,12 +4,14 @@
   <form [formGroup]="form"  class="min-width">
     <mat-form-field class="full-width">
       <input matInput placeholder="nome" formControlName="name">
+      <mat-error *ngIf="form.get('name')?.invalid">{{getErrorMessage("name")}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="full-width">
       <input matInput placeholder="RA" formControlName="ra">
+      <mat-error *ngIf="form.get('ra')?.invalid">{{getErrorMessage("ra")}}</mat-error>
     </mat-form-field>
-
+    <!--incerção dos times, aqui temos as cores dos times-->
     <mat-form-field class="full-width">
 
         <mat-label>Time</mat-label>
