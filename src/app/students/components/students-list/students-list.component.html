@@ -1,0 +1,55 @@
+
+
+<mat-table  [dataSource]="students"  aria-label="Students Table">
+
+  <ng-container matColumnDef="_id">
+    <mat-header-cell  *matHeaderCellDef>id</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let student">{{ student._id }}
+
+    </mat-cell>
+
+  </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell  *matHeaderCellDef>Nome</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{ student.name }}
+    </mat-cell>
+
+  </ng-container>
+
+  <!-- Ra Column -->
+  <ng-container matColumnDef="ra">
+    <mat-header-cell *matHeaderCellDef>Ra</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{ student.ra }}
+
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="team">
+    <mat-header-cell *matHeaderCellDef>Team</mat-header-cell>
+    <mat-cell *matCellDef="let student">{{ student.team }}
+    </mat-cell>
+
+  </ng-container>
+
+  <ng-continer matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="action-column-header">
+      <button mat-mini-fab color="accent" aria-label="Adcionar um aluno">
+        <mat-icon (click)="onAdd()">add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+  <mat-cell *matCellDef="let student" class="action-column">
+    <button mat-icon-button color="primary" aria-label="Editar um aluno">
+      <mat-icon (click)="onEdit(student)">edit</mat-icon>
+    </button>
+
+    <button mat-icon-button color="warn" aria-label="Deletar um aluno">
+      <mat-icon (click)="onDelete(student)">delete</mat-icon>
+    </button>
+  </mat-cell>
+</ng-continer>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
