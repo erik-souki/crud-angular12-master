@@ -34,18 +34,18 @@
 
   <ng-continer matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef class="action-column-header">
-      <button mat-mini-fab color="accent" aria-label="Adcionar um aluno">
-        <mat-icon (click)="onAdd()">add</mat-icon>
+      <button mat-mini-fab color="accent" aria-label="Adcionar um aluno" (click)="onAdd()">
+        <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
 
   <mat-cell *matCellDef="let student" class="action-column">
-    <button mat-icon-button color="primary" aria-label="Editar um aluno">
-      <mat-icon (click)="onEdit(student)">edit</mat-icon>
+    <button mat-icon-button color="primary" aria-label="Editar um aluno" (click)="onEdit(student)">
+      <mat-icon>edit</mat-icon>
     </button>
 
-    <button mat-icon-button color="warn" aria-label="Deletar um aluno">
-      <mat-icon (click)="onDelete(student)">delete</mat-icon>
+    <button mat-icon-button color="warn" aria-label="Deletar um aluno" (click)="onDelete(student)">
+      <mat-icon>delete</mat-icon>
     </button>
   </mat-cell>
 </ng-continer>
