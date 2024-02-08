@@ -8,6 +8,7 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <!-- <mat-label>Ra</mat-label> -->
       <input matInput placeholder="RA" formControlName="ra">
       <mat-error *ngIf="form.get('ra')?.invalid">{{getErrorMessage("ra")}}</mat-error>
     </mat-form-field>
@@ -22,6 +23,35 @@
         </mat-select>
 
     </mat-form-field>
+
+    <mat-toolbar>
+      <span>Time Auxiliar</span>
+      <button mat-icon-button color = "primary">
+        <mat-icon aria-label="adionar um novo time">add</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <table
+    style="width: 100%"
+    formArrayName = "times"
+    *ngFor="let time of form.get('times').controls"
+    >
+      <tr>
+        <td style="width: 50%">
+          <mat-form-field class="full-width">
+            <mat-label>Time 1</mat-label>
+            <span matPrefix>+1 &nbsp;</span>
+            <input matInput placeholder="Time 1" formControlName="teamOne">
+          </mat-form-field>
+        </td>
+        <td style="width: 50%">
+          <mat-form-field class="full-width">
+            <mat-label>Time 2</mat-label>
+            <input matInput placeholder="Time 1" formControlName="teamOne">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
   </form>
 </mat-card-actions>
 
