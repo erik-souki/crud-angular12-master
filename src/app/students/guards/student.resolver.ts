@@ -17,6 +17,6 @@ export class StudentResolver implements Resolve<Student> {
     if (route.params && route.params['id']){
       return this.service.loadById(route.params['id']);
     }
-      return of({_id:'', name: '', ra: '', team: ''});
+      return of({_id:'', name: '', ra: '', team: '', times: []});
   }
 }

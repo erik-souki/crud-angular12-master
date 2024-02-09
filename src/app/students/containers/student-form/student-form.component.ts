@@ -1,6 +1,7 @@
+import { Times } from './../../model/times';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,35 +15,71 @@ import { StudentsService } from '../../services/students.service';
   styleUrls: ['./student-form.component.css']
 })
 export class StudentFormComponent implements OnInit {
+  form!: FormGroup;
 
-  form = this.formBuilder.group({
-    _id: [''],
-    name: ['',[Validators.required,
-       Validators.minLength(3),
-       Validators.maxLength(60)]],
-    ra:['',[Validators.required,
-       Validators.maxLength(15),
-        Validators.pattern("^[0-9]*$")]],
-    team:['',Validators.required]
-  });
+  selectedTeam?: string; // Variable to hold the selected team value
+
+  // Define your form control for the mat-select
+  teamControl = new FormControl();
+
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: StudentsService,
     private snackBar:MatSnackBar,
     private location: Location,
     private route: ActivatedRoute) {
+
+
+      this.teamControl.valueChanges.subscribe(value => {
+        this.selectedTeam = value; // Update the selectedTeam variable with the selected value
+      });
     //this.form
   }
 
   ngOnInit(): void {
     const student: Student = this.route.snapshot.data['student'];
-    this.form.setValue({
-      _id: student._id,
-      name: student.name,
-      ra: student.ra,
-      team: student.team
-    })
+    this.form = this.formBuilder.group({
+      _id: [student._id],
+      name: [student.name,[Validators.required,
+         Validators.minLength(3),
+         Validators.maxLength(60)]],
+      ra:[student.ra,[Validators.required,
+         Validators.maxLength(15),
+          Validators.pattern("^[0-9]*$")]],
+      team:[student.team, [Validators.required]],
+      times: this.formBuilder.array(this.retrieveTimes(student))
+    });
+
   }
+
+
+
+
+  private retrieveTimes(student: Student) {
+    const times = [];
+    if (student?.times){
+      student.times.forEach(time => times.push(this.createTime(time)))
+    } else {
+      times.push(this.createTime());
+    }
+    return times;
+  }
+
+  //aqui é a parte que declara o array de times, como vou mudar e deixar apenas um time adicional, vou deixar um comentario
+  getTimesFormsArray() {
+    return (<UntypedFormArray> this.form.get('times')).controls;
+  }
+
+  private createTime(times: Times = {id:'', teamOne:'', teamTwo:''}) {
+    return this.formBuilder.group({
+      id: [times.id],
+      teamOne: [times.teamOne],
+      teamTwo: [times.teamTwo]
+    });
+
+  }
+
+
 
   onSubmit(){
       this.service.save(this.form.value)
@@ -82,6 +119,11 @@ export class StudentFormComponent implements OnInit {
     }
 
     return 'Campo Invalido';
+
+
+
+
+
 
   }
 }
