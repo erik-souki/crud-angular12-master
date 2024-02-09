@@ -1,7 +1,7 @@
 import { Times } from './../../model/times';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,12 +17,22 @@ import { StudentsService } from '../../services/students.service';
 export class StudentFormComponent implements OnInit {
   form!: FormGroup;
 
+  selectedTeam?: string; // Variable to hold the selected team value
+
+  // Define your form control for the mat-select
+  teamControl = new FormControl();
+
 
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: StudentsService,
     private snackBar:MatSnackBar,
     private location: Location,
     private route: ActivatedRoute) {
+
+
+      this.teamControl.valueChanges.subscribe(value => {
+        this.selectedTeam = value; // Update the selectedTeam variable with the selected value
+      });
     //this.form
   }
 
@@ -36,7 +46,7 @@ export class StudentFormComponent implements OnInit {
       ra:[student.ra,[Validators.required,
          Validators.maxLength(15),
           Validators.pattern("^[0-9]*$")]],
-      team:[student.team,Validators.required],
+      team:[student.team, [Validators.required]],
       times: this.formBuilder.array(this.retrieveTimes(student))
     });
 
@@ -55,6 +65,10 @@ export class StudentFormComponent implements OnInit {
     return times;
   }
 
+  //aqui é a parte que declara o array de times, como vou mudar e deixar apenas um time adicional, vou deixar um comentario
+  getTimesFormsArray() {
+    return (<UntypedFormArray> this.form.get('times')).controls;
+  }
 
   private createTime(times: Times = {id:'', teamOne:'', teamTwo:''}) {
     return this.formBuilder.group({
@@ -63,11 +77,6 @@ export class StudentFormComponent implements OnInit {
       teamTwo: [times.teamTwo]
     });
 
-  }
-
-  getTimesArray(){
-
-  
   }
 
 

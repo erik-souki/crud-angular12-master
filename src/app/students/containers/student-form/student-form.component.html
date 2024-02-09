@@ -16,42 +16,56 @@
     <mat-form-field class="full-width">
 
         <mat-label>Time</mat-label>
-        <mat-select formControlName="team">
-          <mat-option value="option1">Amarelo</mat-option>
-          <mat-option value="option2" disabled>Azul (disabled)</mat-option>
-          <mat-option value="option3">Vermelho</mat-option>
+        <mat-select formControlName="team" [(value)]="selectedTeam">
+          <mat-option value="Amarelo">Amarelo</mat-option>
+          <mat-option value="Azul" >Azul</mat-option>
+          <mat-option value="Vermelho">Vermelho</mat-option>
+
         </mat-select>
 
     </mat-form-field>
 
-    <mat-toolbar>
-      <span>Time Auxiliar</span>
-      <button mat-icon-button color = "primary">
-        <mat-icon aria-label="adionar um novo time">add</mat-icon>
-      </button>
-    </mat-toolbar>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Time Auxiliar
+        </mat-panel-title>
+        <mat-panel-description>
+          Adicione uma nova equipe
+          <mat-icon>outlined_flag</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
+
+<!-- formArrayName="times"
+    *ngFor="let times of getTimesFormsArray(); let i = index" -->
+<!-- [formGroupName]="i" -->
     <table
     style="width: 100%"
-    formArrayName = "times"
-    *ngFor="let time of form.get('times').controls"
-    >
-      <tr>
+     >
+      <tr >
         <td style="width: 50%">
           <mat-form-field class="full-width">
             <mat-label>Time 1</mat-label>
-            <span matPrefix>+1 &nbsp;</span>
-            <input matInput placeholder="Time 1" formControlName="teamOne">
+            <input matInput placeholder="Selected Time" [value]="selectedTeam" readonly>
           </mat-form-field>
         </td>
         <td style="width: 50%">
           <mat-form-field class="full-width">
-            <mat-label>Time 2</mat-label>
-            <input matInput placeholder="Time 1" formControlName="teamOne">
-          </mat-form-field>
+
+            <mat-label>Time</mat-label>
+            <mat-select formControlName="teamTwo" >
+              <mat-option value="Amarelo">Amarelo</mat-option>
+              <mat-option value="Azul" >Azul</mat-option>
+              <mat-option value="Vermelho">Vermelho</mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
         </td>
       </tr>
     </table>
+  </mat-expansion-panel>
   </form>
 </mat-card-actions>
 
